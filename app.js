@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3007;
+const port = 5000;
 const ArabaService = require("./ArabaService");
 const araba = require("./araba");
 const BusService = require("./BusService");
@@ -22,7 +22,7 @@ app.get("/arabalar", (req, res) => {
 app.get("/bus", (req, res) => {
     console.log("get tetiklendi");
 
-    const response = BusService.bus_bul() // ArabaService içindeki fonksiyonu çağırma
+    const response = BusService.bus_bul() // BusService içindeki fonksiyonu çağırma
     res.json(response);
 });
 
@@ -48,6 +48,23 @@ app.post("/bus", (req, res) => {
     res.json(response)
 
 })
+
+const yeniAraba = new araba({
+    marka : ferrari,
+        model :2020,
+  });
+  
+  yeniAraba.save()
+    .then(() => {
+      console.log('Yeni araba eklendi:', yeniAraba);
+      mongoose.disconnect();
+  
+    })
+    .catch((err) => {
+      console.error('araba oluşturma hatası:', err);
+      mongoose.disconnect();
+    });
+  
 
 /*
 app.delete("/", (req, res) => {
